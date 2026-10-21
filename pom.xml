@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0">
     <modelVersion>4.0.0</modelVersion>
-
-    <!-- Если вы используете группу com.example.mysite, лучше укажите её здесь,
-         но это не критично, если папки совпадают -->
     <groupId>com.example</groupId>
     <artifactId>mysite</artifactId>
     <version>1.0</version>
@@ -24,41 +21,24 @@
 
     <build>
         <plugins>
-            <!-- Плагин для локального запуска (оставляем) -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <!-- ВАЖНО: Путь к вашему классу с методом main -->
-                    <mainClass>com.example.mysite.MysiteApplication</mainClass>
-                </configuration>
-            </plugin>
-
-            <!-- Плагин для сборки "толстого" JAR для Docker -->
+            <!-- Плагин для сборки в один исполняемый файл -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.6.0</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <!-- ВАЖНО: Указываем правильный класс, который содержит main -->
-                            <mainClass>com.example.mysite.MysiteApplication</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <!-- Эта настройка собирает все зависимости внутрь JAR -->
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.1</version>
                 <executions>
                     <execution>
-                        <id>make-assembly</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>shade</goal>
                         </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.example.mysite.MysiteApplication</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
