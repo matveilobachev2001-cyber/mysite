@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход — MultiSite</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+<main class="login">
+    <div class="login__card">
+        <div class="login__logo">🌍</div>
+        <h1 class="login__title">MultiSite</h1>
+        <p class="login__subtitle">
+            Введи ник — мы создадим аккаунт или пустим под существующим
+        </p>
+
+        <form class="login__form" id="loginForm" novalidate>
+            <label class="login__label">
+                Ник
+                <input
+                        type="text"
+                        class="login__input"
+                        id="nicknameInput"
+                        placeholder="например: vasya_2026"
+                        autocomplete="off"
+                        autofocus
+                        minlength="3"
+                        maxlength="20"
+                        required
+                >
+            </label>
+
+            <p class="login__error hidden" id="loginError"></p>
+
+            <button type="submit" class="login__btn" id="loginSubmit">
+                Войти
+            </button>
+        </form>
+
+        <p class="login__hint">
+            Или <a href="index.html">продолжить без входа</a>
+        </p>
+    </div>
+</main>
+
+<script src="js/login.js"></script>
+</body>
+</html>
